@@ -59,6 +59,40 @@ If you have code that needs conditional compilation, use the `NET40` and `NET35`
 
 The following steps outline how this utility converts the solution from .NET 4.0 to .NET 3.5
 
-1. Load the solution file and discard any projects that are not C# projects, and that do not have 
+Changes to the solution file (eg `MyProject.sln`):
+
+1. Load the solution file and discard any projects that are not C# projects, and any C# projects that do not have the `NET40` compile constant defined for all configurations.
+
+2. For each of the remaining projects:
+
+* Rename project by adding ".Net35" to the end, eg `MyProject` becomes `MyProject.Net35`
+* Rename project file. So `src\MyProject.csproj` would become `src\MyProject.Net35.csproj`.
+* Generate a new Project Guid for the project.
+
+3. Update project dependencies to reflect project guid changes.
+
+4. Rename and save. So `MyProject.sln` would be saved to `MyProject.Net35.sln`.
+
+Changes to each project file:
+
+1. Name changed and Guid changed as per above.
+
+2. Remove compile constants `NET40`, `NET40_CLIENT`.
+
+3. Add compile constant `NET35`
+
+4. Remove reference assemblies that are .NET 4.0 only. Currently this is `Microsoft.CSharp`, but there may be others.
+
+5. Change project references to reflect change of Guids and change of names.
+
+6. Change assembly references. This uses the nuget convention. If the assembly hint contains `net40` or `net40-client`, then look for a matching assembly in the associated `net35` directory.
+
+7. Change the target framework version to v3.5.
+
+8. Clear the target framework profile (ie if it is `Client` then it is changed to be empty).
+
+
+
+
 
 
