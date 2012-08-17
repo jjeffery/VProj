@@ -30,6 +30,7 @@ To build for multiple framework targets, build your original (.NET 4.0) solution
 
 If you have code that needs conditional compilation, use the `NET40` and `NET35` conditional compilation constants:
 
+```
   #if NET40
       // ... code that works under .NET 4.0
   #endif
@@ -37,6 +38,7 @@ If you have code that needs conditional compilation, use the `NET40` and `NET35`
   #if NET35
       // ... code that works under .NET 3.5
   #endif
+```
 
 ## Usage ##
 
