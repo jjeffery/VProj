@@ -2,7 +2,7 @@
 
 `VProj` is a simple tool that will copy an existing VS solution and convert it to build under the .NET 3.5 framework.
 
-If you are building a re-usable library and you wisht to target both .NET Frameworks version 4.0 and 3.5 then you might find it useful.
+If you are building a re-usable library and you wish to target multiple .NET Framework versions (4.0 and 3.5) then you might find it useful.
 
 Many projects that target multiple framework versions use a different approach, in that they add conditional elements in the MSBUILD project file. I have experimented
 with this alternative approach and prefer it for the following reasons:
@@ -17,6 +17,7 @@ That last point is an important one for me. I find that if I have hand-edited `<
 
 * Only knows about C# projects. It will ignore everything else. (I only use C#, but it would not be difficult to upgrade for VB, F#, etc).
 * Does not convert Web projects. I find that I only want to use this for re-usable assemblies, I never want to target a web application for multiple frameworks.
+* Only works for .NET 4.0 at the moment. In the near future I will probably have to enhance it to handle .NET 4.5, 4.0 and 3.5. (I don't intend to include .NET 3.0 or 2.0 at the moment).
 
 ## Instructions ##
 
@@ -65,17 +66,18 @@ The following steps outline how this utility converts the solution from .NET 4.0
 
 Changes to the solution file (eg `MyProject.sln`):
 
-1. Load the solution file and discard any projects that are not C# projects, and any C# projects that do not have the `NET40` compile constant defined for all configurations.
+1. Load the solution file and discard any projects that are not C# projects, and any C# projects that do not have 
+   the `NET40` compile constant defined for all configurations.
 
-2. For each of the remaining projects:
+2. Rename each project by adding ".Net35" to the end, eg `MyProject` becomes `MyProject.Net35`.
 
-  * Rename project by adding ".Net35" to the end, eg `MyProject` becomes `MyProject.Net35`
-  * Rename project file. So `src\MyProject.csproj` would become `src\MyProject.Net35.csproj`.
-  * Generate a new Project Guid for the project.
+3. Rename each project file. So `src\MyProject.csproj` would become `src\MyProject.Net35.csproj`.
 
-3. Update project dependencies to reflect project guid changes.
+4. Generate a new Project Guid for the project.
 
-4. Rename and save. So `MyProject.sln` would be saved to `MyProject.Net35.sln`.
+5. Update project dependencies to reflect project guid changes.
+
+6. Save solution file to new file. So `MyProject.sln` would be saved to `MyProject.Net35.sln`.
 
 Changes to each project file:
 
