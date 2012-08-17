@@ -42,6 +42,7 @@ If you have code that needs conditional compilation, use the `NET40` and `NET35`
 
 ## Usage ##
 
+```
   C:\>vproj --help
   Usage: vproj [ options ]
   Convert a VS project from .NET 4.0 to .NET 3.5.
@@ -56,6 +57,7 @@ If you have code that needs conditional compilation, use the `NET40` and `NET35`
     -q, --quiet                  Quiet operation, log errors and warnings only
     -?, --help                   Show this help message
   (Items marked * are mandatory)
+```
 
 ## Conversion Process ##
 
@@ -67,9 +69,9 @@ Changes to the solution file (eg `MyProject.sln`):
 
 2. For each of the remaining projects:
 
-* Rename project by adding ".Net35" to the end, eg `MyProject` becomes `MyProject.Net35`
-* Rename project file. So `src\MyProject.csproj` would become `src\MyProject.Net35.csproj`.
-* Generate a new Project Guid for the project.
+  * Rename project by adding ".Net35" to the end, eg `MyProject` becomes `MyProject.Net35`
+  * Rename project file. So `src\MyProject.csproj` would become `src\MyProject.Net35.csproj`.
+  * Generate a new Project Guid for the project.
 
 3. Update project dependencies to reflect project guid changes.
 
